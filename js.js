@@ -27,12 +27,34 @@ addBookToLibrary(
   598,
 );
 
+function createBook(book) {
+  const bookCard = document.createElement("div");
+  const title = document.createElement("h3");
+  const author = document.createElement("p");
+  const pages = document.createElement("p");
+
+  title.textContent = `${book.title}`;
+  author.textContent = `${book.author}`;
+  pages.textContent = `${book.pages}`;
+
+  title.classList.add("book-card-title");
+  author.classList.add("book-card-author");
+  pages.classList.add("book-card-pages");
+
+  bookCard.appendChild(title);
+  bookCard.appendChild(author);
+  bookCard.appendChild(pages);
+
+  bookCard.classList.add("book");
+  bookCard.style.height = `${Math.random() * 180 + 200}px`;
+  bookCard.style.width = `${book.pages / 5}px`;
+
+  return bookCard;
+}
+
 function fillBookShelf() {
   myLibrary.forEach((book) => {
-    let bookCard = document.createElement("div");
-    bookCard.style.height = Math.random();
-    ((bookCard.textContent = `${book.title}, ${book.author}, ${book.pages}`),
-      shelf.appendChild(bookCard));
+    shelf.appendChild(createBook(book));
   });
 }
 

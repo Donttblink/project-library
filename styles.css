@@ -83,9 +83,37 @@ main {
   grid-template-rows: 1fr 1fr;
 }
 
+.book {
+  align-self: end;
+  border: solid red 1px;
+  min-width: min-content;
+  min-height: min-content;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.book-card-title {
+  writing-mode: sideways-lr;
+  align-self: start;
+}
+
+.book-card-author {
+  writing-mode: sideways-lr;
+  align-self: start;
+}
+
+.book-card-pages {
+  writing-mode: horizontal-tb;
+  grid-row-start: 2;
+  grid-column: span 2;
+  justify-self: center;
+}
+
 aside {
   grid-area: sidebar;
 }
+
 footer {
   grid-area: footer;
   align-content: end;
