@@ -1,6 +1,7 @@
 const myLibrary = [];
 const shelf = document.querySelector(".shelf");
 const form = document.querySelector(".book-form");
+const newBook = document.querySelector;
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -11,6 +12,10 @@ function Book(title, author, pages, read) {
   this.width = `${pages / 5}`;
   this.read = read;
 }
+
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
 
 function addBookToLibrary(title, author, pages, read) {
   const book = new Book(title, author, pages, read);
@@ -45,18 +50,23 @@ function createBook(book) {
   const author = document.createElement("p");
   const pages = document.createElement("p");
   const readToggle = document.createElement("input");
+  const remove = document.createElement("button");
+  const id = book.id;
 
   title.textContent = `${book.title}`;
   author.textContent = `${book.author}`;
   pages.textContent = `${book.pages}`;
   readToggle.type = "checkbox";
   readToggle.checked = book.read;
+  remove.textContent = "x";
 
   title.classList.add("book-card-title");
   author.classList.add("book-card-author");
   pages.classList.add("book-card-pages");
   readToggle.classList.add("read-toggle");
+  remove.classList.add("remove-btn");
 
+  bookCard.appendChild(remove);
   bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(pages);
@@ -65,6 +75,16 @@ function createBook(book) {
   bookCard.classList.add("book");
   bookCard.style.height = `${book.height}px`;
   bookCard.style.width = `${book.width}px`;
+
+  readToggle.addEventListener("change", function (e) {
+    book.toggleRead();
+  });
+
+  remove.addEventListener("click", () => {
+    bookCard.remove();
+    const index = myLibrary.findIndex((item) => item.id === id);
+    myLibrary.splice(index, 1);
+  });
 
   return bookCard;
 }
