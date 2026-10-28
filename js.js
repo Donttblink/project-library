@@ -1,30 +1,42 @@
 const myLibrary = [];
 const shelf = document.querySelector(".shelf");
+const form = document.querySelector(".book-form");
 
-function Book(title, author, pages) {
+function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.id = crypto.randomUUID();
+  this.height = Math.random() * 180 + 200;
+  this.width = `${pages / 5}`;
+  this.read = read;
 }
 
-function addBookToLibrary(title, author, pages) {
-  const book = new Book(title, author, pages);
+function addBookToLibrary(title, author, pages, read) {
+  const book = new Book(title, author, pages, read);
   myLibrary.push(book);
+  return book;
 }
 
 addBookToLibrary(
   "Harry Potter and the philosopher's stone",
   "J.K Rowling",
   398,
+  true,
 );
 
-addBookToLibrary("Harry Potter and the chamber of secrets", "J.K Rowling", 498);
+addBookToLibrary(
+  "Harry Potter and the chamber of secrets",
+  "J.K Rowling",
+  498,
+  true,
+);
 
 addBookToLibrary(
   "Harry Potter and the prisoner of Azkaban",
   "J.K Rowling",
   598,
+  true,
 );
 
 function createBook(book) {
@@ -32,25 +44,41 @@ function createBook(book) {
   const title = document.createElement("h3");
   const author = document.createElement("p");
   const pages = document.createElement("p");
+  const readToggle = document.createElement("input");
 
   title.textContent = `${book.title}`;
   author.textContent = `${book.author}`;
   pages.textContent = `${book.pages}`;
+  readToggle.type = "checkbox";
+  readToggle.checked = book.read;
 
   title.classList.add("book-card-title");
   author.classList.add("book-card-author");
   pages.classList.add("book-card-pages");
+  readToggle.classList.add("read-toggle");
 
   bookCard.appendChild(title);
   bookCard.appendChild(author);
   bookCard.appendChild(pages);
+  bookCard.appendChild(readToggle);
 
   bookCard.classList.add("book");
-  bookCard.style.height = `${Math.random() * 180 + 200}px`;
-  bookCard.style.width = `${book.pages / 5}px`;
+  bookCard.style.height = `${book.height}px`;
+  bookCard.style.width = `${book.width}px`;
 
   return bookCard;
 }
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const title = e.target.elements["book-name"].value;
+  const author = e.target.elements["author-name"].value;
+  const pages = Number(e.target.elements["book-length"].value);
+  const read = e.target.elements["read"].checked;
+
+  shelf.appendChild(createBook(addBookToLibrary(title, author, pages, read)));
+  e.target.reset();
+});
 
 function fillBookShelf() {
   myLibrary.forEach((book) => {

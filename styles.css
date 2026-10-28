@@ -110,6 +110,10 @@ main {
   justify-self: center;
 }
 
+.read-toggle {
+  grid-row-start: 2;
+}
+
 aside {
   grid-area: sidebar;
 }
