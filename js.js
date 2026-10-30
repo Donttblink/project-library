@@ -1,14 +1,14 @@
 const myLibrary = [];
 const shelf = document.querySelector(".shelf");
 const form = document.querySelector(".book-form");
-const newBook = document.querySelector;
+const newBook = document.querySelector(".new-book");
 
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.id = crypto.randomUUID();
-  this.height = Math.random() * 180 + 200;
+  this.height = Math.random() * 40 + 60;
   this.width = `${pages / 5}`;
   this.read = read;
 }
@@ -44,6 +44,10 @@ addBookToLibrary(
   true,
 );
 
+newBook.addEventListener("click", () => {
+  form.hidden = !form.hidden;
+});
+
 function createBook(book) {
   const bookCard = document.createElement("div");
   const title = document.createElement("h3");
@@ -73,7 +77,7 @@ function createBook(book) {
   bookCard.appendChild(readToggle);
 
   bookCard.classList.add("book");
-  bookCard.style.height = `${book.height}px`;
+  bookCard.style.height = `${book.height}%`;
   bookCard.style.width = `${book.width}px`;
 
   readToggle.addEventListener("change", function (e) {
@@ -98,6 +102,7 @@ form.addEventListener("submit", function (e) {
 
   shelf.appendChild(createBook(addBookToLibrary(title, author, pages, read)));
   e.target.reset();
+  form.hidden = true;
 });
 
 function fillBookShelf() {
