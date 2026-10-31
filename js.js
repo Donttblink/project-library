@@ -9,7 +9,7 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.id = crypto.randomUUID();
   this.height = Math.random() * 40 + 60;
-  this.width = `${pages / 5}`;
+  this.width = `${pages / 6}`;
   this.read = read;
 }
 
@@ -45,7 +45,11 @@ addBookToLibrary(
 );
 
 newBook.addEventListener("click", () => {
-  form.hidden = !form.hidden;
+  if (!form.classList.contains("form-hidden")) {
+    form.classList.add("form-hidden");
+  } else {
+    form.classList.remove("form-hidden");
+  }
 });
 
 function createBook(book) {

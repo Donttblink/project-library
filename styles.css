@@ -19,13 +19,14 @@ body {
   -webkit-font-smoothing: antialiased;
   height: 100vh;
   display: grid;
-  grid-template-columns: 0.5fr 2fr;
-  grid-template-rows: auto 2fr 2fr auto;
+  grid-template-columns: 0.8fr 2fr;
+  grid-template-rows: auto 400px 400px auto;
   grid-template-areas:
     "header  header"
     "sidebar main"
     "sidebar main"
     "footer footer";
+  grid-column-gap: 20px;
 }
 
 img,
@@ -75,13 +76,16 @@ header {
   grid-area: header;
   align-content: center;
   justify-items: center;
+  margin-bottom: 40px;
 }
+
 main {
   grid-area: main;
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: repeat(2, minmax(0, 1fr));
   position: relative;
+  grid-column-gap: 10px;
   grid-row-gap: 30px;
 }
 
@@ -111,17 +115,21 @@ main::after {
   display: grid;
   grid-template-rows: 1fr auto;
   grid-template-columns: 1fr 1fr;
+  grid-row-gap: 10px;
   position: relative;
+  background-color: lightblue;
 }
 
 .book-card-title {
+  font-size: 14px;
   writing-mode: sideways-lr;
-  align-self: start;
+  align-self: end;
 }
 
 .book-card-author {
+  font-size: 10px;
   writing-mode: sideways-lr;
-  align-self: start;
+  align-self: end;
 }
 
 .book-card-pages {
@@ -133,6 +141,11 @@ main::after {
 
 .remove-btn {
   position: absolute;
+  border: none;
+  color: red;
+  background: none;
+  right: 0px;
+  top: 0px;
 }
 
 .read-toggle {
@@ -141,6 +154,11 @@ main::after {
 
 aside {
   grid-area: sidebar;
+  padding: 8px;
+}
+
+.form-hidden {
+  visibility: hidden;
 }
 
 footer {
