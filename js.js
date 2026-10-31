@@ -2,6 +2,23 @@ const myLibrary = [];
 const shelf = document.querySelector(".shelf");
 const form = document.querySelector(".book-form");
 const newBook = document.querySelector(".new-book");
+const spineColors = [
+  "#cab891",
+  "#70683b",
+  "#81231e",
+  "#5f6a54",
+  "#2b2c1e",
+  "#b9b59f",
+  "#bf9f4c",
+  "#6f634d",
+  "#314837",
+  "#152c18",
+  "#8da683",
+  "#be8f3c",
+  "#d99d29",
+  "#f2dcb1",
+  "#dc8920",
+];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -9,8 +26,9 @@ function Book(title, author, pages, read) {
   this.pages = pages;
   this.id = crypto.randomUUID();
   this.height = Math.random() * 40 + 60;
-  this.width = `${pages / 6}`;
+  this.width = `${pages / 5}`;
   this.read = read;
+  this.color = spineColors[Math.floor(Math.random() * spineColors.length)];
 }
 
 Book.prototype.toggleRead = function () {
@@ -45,11 +63,9 @@ addBookToLibrary(
 );
 
 newBook.addEventListener("click", () => {
-  if (!form.classList.contains("form-hidden")) {
-    form.classList.add("form-hidden");
-  } else {
-    form.classList.remove("form-hidden");
-  }
+  !form.classList.contains("form-hidden")
+    ? form.classList.add("form-hidden")
+    : form.classList.remove("form-hidden");
 });
 
 function createBook(book) {
@@ -66,7 +82,7 @@ function createBook(book) {
   pages.textContent = `${book.pages}`;
   readToggle.type = "checkbox";
   readToggle.checked = book.read;
-  remove.textContent = "x";
+  remove.textContent = "×";
 
   title.classList.add("book-card-title");
   author.classList.add("book-card-author");
@@ -83,6 +99,7 @@ function createBook(book) {
   bookCard.classList.add("book");
   bookCard.style.height = `${book.height}%`;
   bookCard.style.width = `${book.width}px`;
+  bookCard.style.setProperty("--spine", book.color);
 
   readToggle.addEventListener("change", function (e) {
     book.toggleRead();
@@ -106,7 +123,7 @@ form.addEventListener("submit", function (e) {
 
   shelf.appendChild(createBook(addBookToLibrary(title, author, pages, read)));
   e.target.reset();
-  form.hidden = true;
+  form.classList.add("form-hidden");
 });
 
 function fillBookShelf() {
